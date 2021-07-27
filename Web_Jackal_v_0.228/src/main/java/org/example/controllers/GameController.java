@@ -1,8 +1,6 @@
 package org.example.controllers;
 import org.example.DAO.PlayerDAO;
 import org.example.model.Grid;
-import org.example.model.Move;
-import org.example.model.Person;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +39,15 @@ public class GameController {
         model.addAttribute("grid", grid.getGrid());
         String value = requestParams.get("cell");
         grid.GameUpdate(value);
+        for (int i = 0; i < 2; ++i) {
+            playerDAO.getPlayers().get(i).Money = grid.players_coins[i];
+        }
+        if (grid.coins_on_field == 0) {
+            if (playerDAO.getPlayers().get(0).Money > playerDAO.getPlayers().get(1).Money)
+                return "jackal/player1";
+            else
+                return "jackal/player2";
+        }
         return "jackal/gamefield";
     }
 
