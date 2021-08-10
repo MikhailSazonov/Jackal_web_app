@@ -18,8 +18,15 @@ public class Grid {
 
     {
 
-
         table = new Cell[13][13];
+
+        for (int i = 0; i < 13; ++i) {
+            for (int j = 0; j < 13; ++j) {
+                table[i][j] = new Cell();
+                table[i][j].Id = 13 * i + j;
+            }
+        }
+
         grid = new String[13][13];
 
         ship_pirates_ = new int[]{3, 3};
@@ -806,6 +813,10 @@ public class Grid {
 
 
     public void GameUpdate(String cell_name) {
+
+        int coord = Integer.parseInt(cell_name);
+        cell_name = grid[coord / 13][coord % 13];
+
         String x_coord = "";
         String y_coord = "";
         String cell_type = "";

@@ -3,11 +3,11 @@ package org.example.model;
 public class Cell {
 
 
-    public int Id;
+    public int Id = 0;
 
     public int pirates_count = 0;
     public int pirates_player = 5;
-    public String type;
+    public String type = "";
     public boolean ship = false;
     public int ship_player = 5;
     public int coins = 0;
@@ -40,24 +40,23 @@ public class Cell {
         return Id;
     }
 
-    String Type;
 
     public void setType(String s){
-        Type = s;
+        type = s;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
-    public Cell(int id, String type){
+    public Cell(int id, String Type){
         Id = id;
-        Type = type;
+        type = Type;
     }
 
     Cell() {
         Id = 0;
-        Type = "";
+        type = "";
     }
 
 }

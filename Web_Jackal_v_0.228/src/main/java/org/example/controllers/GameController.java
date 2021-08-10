@@ -27,12 +27,6 @@ public class GameController {
         return "jackal/gamefield";
     }
 
-//    @GetMapping("/game")
-//    public String NewGamePage() {
-//        grid.grid[1][1] = "saddam";
-//        return "jackal/gamefield";
-//    }
-
     @PostMapping("/game")
     public String NewGamePage(@RequestParam Map<String, String> requestParams, Model model) {
         model.addAttribute("players", playerDAO.getPlayers());

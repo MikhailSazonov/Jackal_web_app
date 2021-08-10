@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+{%  load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jackal</title>
+    <style>
+        p {
+    margin-top: 0.00002em;
+    margin-bottom: 0.00002em;
+   }
+        .res {
+            text-align: left;
+        }
+        body {
+    background-color: rgb(192, 192, 192);
+   }
+    .fig {
+        text-align: center;
+    }
+    .players img:hover {
+        border: 1px solid #55c5e9;
+        padding: 1px;
+        background: #666;
+    }
+
+    .cells button:hover {
+        border: 0px;
+        padding: 0px;
+    }
+
+    .cells button {
+        border: 0px;
+        padding: 0px;
+    }
+
+    table {
+        margin: auto;
+    }
+
+    </style>
+</head>
+
+<body class="fig">
+<script>
+
+    var grid = [];
+    var cur_pirate = -1;
+    var pirates = [78, 78, 78, 90, 90, 90];
+    var ships = [78, 90];
+    var hint = [];
+    var hint_name = [];
+    var cur_ship = -1;
+    var el_ship = null;var grid = [];
+    var cur_pirate = -1;
+    var pirates = [78, 78, 78, 90, 90, 90];
+    var ships = [78, 90];
+    var hint = [];
+    var hint_name = [];
+    var cur_ship = -1;
+    var el_ship = null;
+    var killed = 0;
+    const p_c = ["player11", "player12", "player13", "player21", "player22", "player23"];
+    const start_pos_top = [380, 380, 408, 380, 380, 408];
+    const start_pos_left = [375, 405, 375, 1022, 1052, 1022];
+    var photos = new Map();
+    photos = {
+        water: "../../static/img/empty.png",
+        blocked: "../../static/img/empty.png",
+        ship: "../../static/img/ship.png",
+        close: "../../static/img/empty.png",
+        empty: "../../static/img/classic-empty-1.png",
+        arrow: "../../static/img/classic-arrow-1s.png",
+        horse: "../../static/img/classic-horse.png",
+        lab$II: "../../static/img/classic-rotate-2.png",
+        lab$III: "../../static/img/classic-rotate-3.png",
+        lab$IV: "../../static/img/classic-rotate-4.png",
+        lab$V: "../../static/img/classic-rotate-5.png",
+        ice: "../../static/img/classic-ice.png",
+        croc: "../../static/img/classic-crocodile.png",
+        cannibal: "../../static/img/classic-cannibal.png",
+        fortress: "../../static/img/classic-fort.png",
+        resurrect: "../../static/img/classic-fort-w-aborigine.png",
+        trap: "../../static/img/empty.png",
+        aircraft: "../../static/img/empty.png",
+        airplane: "../../static/img/classic-airplane.png",
+        leftcannon: "../../static/img/left cannon.png",
+        rightcannon: "../../static/img/rightcannon.png",
+        chest$I: "../../static/img/classic-coins-1.png",
+        chest$II: "../../static/img/classic-coins-2.png",
+        chest$III: "../../static/img/classic-coins-3.png",
+        chest$IV: "../../static/img/classic-coins-4.png",
+        chest$V: "../../static/img/classic-coins-5.png",
+        rum$barrel: "../../static/img/classic-keg.png"
+    };
+    function imgon(Elem) {
+        for (var i = 0; i < 169; i++) {
+            document.getElementById(i).id = Grid.table[i].Id;
+            document.getElementById(i).src = photos[Grid.table[i].type];
+        }
+    }
+
+</script>
+<div class="res">
+    <p>
+        <input type=text placeholder="Игрок 1">: 0
+    </p>
+    <p>
+        <input type=text placeholder="Игрок 2">: 0
+    </p>
+    <p>
+        <img name="turn" id="turn" src="../../static/img/first_player.png" alt="player turn" style="position: absolute;
+        top: 10px; left: 625px;" width="164" height="24" border=0>
+    </p>
+</div>
+<table class="cells">
+    <tr>
+    <td>
+<form action="game" method="post"><button type="hidden" name="cell"><img  id="0"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="1"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="2"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="3"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="4"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="5"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="6"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="7"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="8"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="9"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="10"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="11"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="12"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="13"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="14"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="15"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="16"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="17"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="18"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="19"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="20"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="21"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="22"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="23"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="24"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="25"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="26"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="27"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="28"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="29"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="30"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="31"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="32"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="33"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="34"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="35"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="36"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="37"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="38"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="39"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="40"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="41"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="42"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="43"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="44"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="45"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="46"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="47"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="48"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="49"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="50"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="51"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="52"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="53"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="54"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="55"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="56"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="57"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="58"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="59"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="60"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="61"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="62"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="63"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="64"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="65"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="66"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="67"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="68"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="69"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="70"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="71"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="72"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="73"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="74"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="75"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="76"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="77"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="78"   src="../../static/img/ship.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="79"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="80"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="81"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="82"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="83"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="84"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="85"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="86"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="87"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="88"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="89"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="90"   src="../../static/img/ship.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="91"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="92"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="93"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="94"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="95"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="96"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="97"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="98"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="99"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="100"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="101"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="102"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="103"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="104"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="105"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="106"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="107"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="108"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="109"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="110"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="111"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="112"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="113"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="114"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="115"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="116"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="117"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="118"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="119"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="120"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="121"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="122"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="123"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="124"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="125"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="126"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="127"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="128"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="129"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="130"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="131"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="132"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="133"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="134"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="135"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="136"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="137"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="138"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="139"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="140"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="141"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="142"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="143"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="144"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="145"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="146"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="147"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="148"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="149"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="150"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="151"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="152"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="153"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="154"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="155"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+<tr>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="156"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="157"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="158"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="159"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="160"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="161"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="162"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="163"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="164"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="165"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="166"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="167"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+<td><form action="game" method="post"><button type="hidden" name="cell"><img  id="168"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+</form></td>
+</tr>
+</table>
+<h1 class="players">
+<img id="player11" name="0" src="../../static/img/red.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 420px;
+        left: 348px;">
+<img id="player12" name="1" src="../../static/img/red.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 420px;
+        left: 378px;">
+<img id="player13" name="2" src="../../static/img/red.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 450px;
+        left: 348px;">
+<img id="player21" name="3" src="../../static/img/black.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 420px;
+        left: 1045px;">
+<img id="player22" name="4" src="../../static/img/black.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 420px;
+        left: 1075px;">
+<img id="player23" name="5" src="../../static/img/black.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 450px;
+        left: 1045px;">
+</h1>
+</body>
+</html>
