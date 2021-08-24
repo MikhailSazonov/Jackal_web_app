@@ -1,0 +1,230 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Jackal</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<script>-->
+
+<!--    function changeText(id) {-->
+
+
+<!--        id.innerHTML = "?????";-->
+
+<!--    }-->
+
+<!--</script>-->
+<!--<table>-->
+<!--    <div th:each="i : ${grid}">-->
+<!--        <tr>-->
+<!--        <div th:each="j : ${i}">-->
+<!--            <th>-->
+<!--                <form action="game" method="post">-->
+<!--                    <input type="hidden" name="cell" th:value="${j}"/>-->
+<!--                    <button th:text="${j}"> </button>-->
+<!--                </form>-->
+<!--            </th>-->
+<!--        </div>-->
+<!--        </tr>-->
+<!--    </div>-->
+<!--</table>-->
+
+<!--<div th:each="p : ${players}">-->
+<!--    <table border="10" width="70%">-->
+<!--        <tr>-->
+<!--            <th>Name</th>-->
+<!--            <th><a th:text="${p.getName()}"></a></th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th><a th:text="${p.getId()}"></a></th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <th>Coins</th>-->
+<!--            <th><a th:text="${p.getMoney()}"></a></th>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jackal</title>
+    <style>
+        p {
+    margin-top: 0.00002em;
+    margin-bottom: 0.00002em;
+   }
+        .res {
+            text-align: left;
+        }
+        body {
+    background-color: rgb(192, 192, 192);
+   }
+    .fig {
+        text-align: center;
+    }
+    .players img:hover {
+        border: 1px solid #55c5e9;
+        padding: 1px;
+        background: #666;
+    }
+
+    .cells button:hover {
+        border: 0px;
+        padding: 0px;
+    }
+
+    .cells button {
+        border: 0px;
+        padding: 0px;
+    }
+
+    table {
+        margin: auto;
+        border-spacing: 2px 2px;
+    }
+
+    </style>
+</head>
+
+<body class="fig">
+<script>
+
+    var grid = [];
+    var from_place = -1;
+    var pirates = [78, 78, 78, 90, 90, 90];
+    var ships = [78, 90];
+    var killed = 0;
+    const p_c = ["player11", "player12", "player13", "player21", "player22", "player23"];
+    const start_pos_top = [380, 380, 408, 380, 380, 408];
+    const start_pos_left = [375, 405, 375, 1022, 1052, 1022];
+    var photos = new Map();
+
+    photos = {
+        water: "https://downloader.disk.yandex.ru/preview/5deacb1619534a1b6c266549aa97fbf3ac9ce0a5ca1a07f828e28e5975318803/6113c8d3/7bpX3AYSE3W1lIGLpY6rSshHciNOnYU_nNrY-qeYtv1quDHO9x85ozK93rdG5aaYLUlp7WcAW3NE9cu7jgVHMw%3D%3D?uid=0&filename=empty.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",
+        blocked: "https://downloader.disk.yandex.ru/preview/5deacb1619534a1b6c266549aa97fbf3ac9ce0a5ca1a07f828e28e5975318803/6113c8d3/7bpX3AYSE3W1lIGLpY6rSshHciNOnYU_nNrY-qeYtv1quDHO9x85ozK93rdG5aaYLUlp7WcAW3NE9cu7jgVHMw%3D%3D?uid=0&filename=empty.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",
+        ship: "https://downloader.disk.yandex.ru/preview/e8971fdcbf27eb24b177ee37bfee15854a1cb7863cc8d5ce99d3951162ede10e/6113c8d3/Hk5jgqIboXI1XK6X-SZRbWoGDKE8hPeeH5HMf8bMJuW5yft4b7H1Hbj6A8fx9oze0aRX98e7naORF8QpSxW5UQ%3D%3D?uid=0&filename=ship.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",
+        close: "https://downloader.disk.yandex.ru/preview/5deacb1619534a1b6c266549aa97fbf3ac9ce0a5ca1a07f828e28e5975318803/6113c8d3/7bpX3AYSE3W1lIGLpY6rSshHciNOnYU_nNrY-qeYtv1quDHO9x85ozK93rdG5aaYLUlp7WcAW3NE9cu7jgVHMw%3D%3D?uid=0&filename=empty.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",
+        empty: "https://downloader.disk.yandex.ru/preview/e8be097fd28fd4d20b13d25c44fb7607711a8a608faed0d70f959f4c7970d04f/6113c7ef/ZUuTE0gfHCgEcNmXtO9q1CQz6Xgyx42wou8niSd0xTIBk10eWcmx2fQ7EMP7Ly2uZ4jx1KZMyHoqRkPTnRMCrg%3D%3D?uid=0&filename=classic-empty-1.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        arrow: "https://downloader.disk.yandex.ru/preview/a777db8c458a7381823c03f61059968f75eaf0c70d10f300a052d0021f6cbdaa/6113c7ef/jIU3P1ynRwT82v_221qEZ0wlQ7kXUMt9EMw-AIyWr6Jt9SerzuzSqcEXSkjRHQS_6ks_9ZDk97ztmPFlYmpwDg%3D%3D?uid=0&filename=classic-arrow-2s.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        horse: "https://downloader.disk.yandex.ru/preview/01f24315dacdf7cfaf8c4f326ac8816412700829cbac116857b68b0a1c63346d/6113c7ef/DYhPREX9uUiw6afJvK9MEJrIfBwIdVEap9bL8XEeHsNckLA6sfoWBxBZqGKKyCCi2kZLp8uF4_FzdSxpklnKDA%3D%3D?uid=0&filename=classic-horse.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        lab$II: "https://downloader.disk.yandex.ru/preview/588385c8980924ae25d653e392edd9d7df95576de5c4f6bdbeb40fc9081362a6/6113c8d3/sIftp37XdQSkUlQDxphbzV-2L-oeAuMkjJjv4si8-CASJZnsxSbDp_9cspt6z7gaGVWmd7HzjZnEXcIxwKLSFQ%3D%3D?uid=0&filename=classic-rotate-2.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        lab$III: "https://downloader.disk.yandex.ru/preview/7ca384f79f83e86c2a59b77022de6345b47d5187fe25c0f093e60bd6bff68798/6113c8d3/thGY53hZxo4B5_0PdpXf-F-2L-oeAuMkjJjv4si8-CCp6_UEwIDDUxtwIDEabnkQPME6nbPAT5ra9T4aDR8gRA%3D%3D?uid=0&filename=classic-rotate-3.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        lab$IV: "https://downloader.disk.yandex.ru/preview/ff337b7a2b560c89bae4cdb34269d49da366fcff4045f20c1e95edfdb29f0a82/6113c8d3/tEXKeTG--J0kjQ2p9OjgR1-2L-oeAuMkjJjv4si8-CAx3iE70RSOdlBKhoBY3xyX54MmIeDBPuZXDp49A2Y6DA%3D%3D?uid=0&filename=classic-rotate-4.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        lab$V: "https://downloader.disk.yandex.ru/preview/55c8ca9df4c19022ef805d45991aec2705f6a9fc5c885e5e9113d1e0f9b8d5e2/6113c8d3/5jm9DgpCZ9qPPqzDOu5DXF-2L-oeAuMkjJjv4si8-CABowUGOWWdqzisvL_doWgzbRCMd9wq8_pVc5CNmkcLYg%3D%3D?uid=0&filename=classic-rotate-5.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        ice: "https://downloader.disk.yandex.ru/preview/3bae2e6e3d2b82ec96c4ef8554fab4908252bfe22097515c717894c46cbe849a/6113c7ef/XpwxWG1PamAKJRpeH_fWLzLmYGD-uo0ghgzMwbdKhPWj__qbUhHL3K6DfFf36AnvaezRdFLZYNp3BuGPRkVm0A%3D%3D?uid=0&filename=classic-ice.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        croc: "https://downloader.disk.yandex.ru/preview/e456c1819f15647650e4675c2eace484c7ffb739c7ca2b43237a08c1dd63e23d/6113c7ef/U2Mb_zdaWMqQlhGuUN-b9qGRyLAgXoWFijsfEpYvMDau1MC0AmJJEtdddYvpFBqf0p80ifRuRn1rrL83PUYZYw%3D%3D?uid=0&filename=classic-crocodile.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        cannibal: "https://downloader.disk.yandex.ru/preview/0d405c481f52360e7ca6e1b784208b4f7281481d55c8be96c1b6e967b63ae302/6113c7ef/Ia3g5qR0MbXZQWmi3NzbsMYcUV-jFMI3B6dqNISITrIJncZAwCjafp7qUWAOiCXP0l_uiK45YeXtIB1531lCLw%3D%3D?uid=0&filename=classic-cannibal.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        fortress: "https://downloader.disk.yandex.ru/preview/bc82db078cdb6ac81d8f827f3c1789d68214946b747412dea9ec2d5873889d4a/6113c7ef/2cLoY6D-0V-m3JZFAVwEgCQz6Xgyx42wou8niSd0xTLcTVr_A4mpp7TctLlAGSW85_OOmHwnxCOcldz33bmESQ%3D%3D?uid=0&filename=classic-fort.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        resurrect: "https://downloader.disk.yandex.ru/preview/d026e4276804ce9a913636bfac7e7aeb48f0c5d75eb7f0a17175870a9563e90a/6113c7ef/ckGepZf9D2zHs1UybcN7ACQz6Xgyx42wou8niSd0xTJk0AeNUw7q-bFIOScSu1gMMZu_vnngE-F7WtI2ePOSzg%3D%3D?uid=0&filename=classic-fort-w-aborigine.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        trap: "https://downloader.disk.yandex.ru/preview/5fc54943bbba63bf82f357a998460d73be780678de1e1ecc80ecb44073fc55c8/6113cbb5/sQ6k03NyGmEMqEkCKroiuDLmYGD-uo0ghgzMwbdKhPVHydwyprYlYmtX0sAq_Z4EduC5dkgh4ueNKpwBbRE7YQ%3D%3D?uid=0&filename=classic-pitfall.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        aircraft: "https://downloader.disk.yandex.ru/preview/05c2c3ca603b44ed1035f744f2385883d29945abee8a9ee329cd93d5b3ee0868/6113c7ef/x1bvk3h7DC4wY8i5HtlfOzLHMfXTbtbPXJiCM5vf_ozqCFNr6zH235VPS1h8jb5yxEkM_ZUxbISIOUlOt5hlMQ%3D%3D?uid=0&filename=classic-balloon.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        airplane: "https://downloader.disk.yandex.ru/preview/208a3da9199991405b4330598d9a8e2036d6e5b546ea9772327644e1f2e617d4/6113c7ef/2gGxHo6YLFj2vFJ6zUuhGDLHMfXTbtbPXJiCM5vf_oyb7qDR9olCuPeC0F29uzYMlpvaXrYpa9OWxHY6oBYFAg%3D%3D?uid=0&filename=classic-airplane.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        leftcannon: "https://downloader.disk.yandex.ru/preview/d489436393910ed5520d635b30465efde36f54a67e769ba10bdbf08a35473f93/6113cbb5/lSmGoFXDR8fyW5tVchIF5p4Vark05SgdEgJLa4z4h3ldB0xAuqhXghffkJlj7WwjYrvrLpae6syWirerIdOTcw%3D%3D?uid=0&filename=left%20cannon.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",
+        rightcannon: "https://downloader.disk.yandex.ru/preview/ea77d4d86c7086b313f39bf10b1b5b470d292e19ca42b146e93fbf1511157cb4/6113cbb5/wT-DoY9LjXJWtZP3Mlw1tdthnY4WUSRXJoeKCxKOGqPvBlRaz3qX-yrVnnckIdPD8pJk45JjzzZMxYCZXDvR0A%3D%3D?uid=0&filename=rightcannon.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",
+        chest$I: "https://downloader.disk.yandex.ru/preview/4e5c1545ad1f19b815655f8b1859fe7a8e3e2efc5e9382abc3a15c9f59ac79e7/6113c7ef/MvXxo79xmiKGwGT7ZrhjpR3-bIh2x-QsXo0p8VZy_44rEeLzd_3TZTwq7awIIzyop4O1U9mZ-8qqB5y0Wck2Nw%3D%3D?uid=0&filename=classic-coins-1.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        chest$II: "https://downloader.disk.yandex.ru/preview/beeede244a8f93d5f44efda5104dcf141ed4f277936bbcbc77ac0f0ba9c35c72/6113c7ef/Jjk8nMNuXd9ZvxKw8qwcg8YcUV-jFMI3B6dqNISITrJeR1mQPKpEA5G7LTCPP52MeZ32Zfa2EnkR1sUi8KdSTw%3D%3D?uid=0&filename=classic-coins-2.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        chest$III: "https://downloader.disk.yandex.ru/preview/0f243100ff53aa9380320c2bc6d3b327fa3e8e717d3f86638ef7a18b7054de29/6113c7ef/mxFwj8mNzY0bviVRf-Kb-cYcUV-jFMI3B6dqNISITrKkMh4xraY9Izcm5zmbitIUr2DkkwuhP3f0Jg4hGrp1FA%3D%3D?uid=0&filename=classic-coins-3.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        chest$IV: "https://downloader.disk.yandex.ru/preview/13580df94e964087d5e1dc2a90ebca7a9878cd57e84578fc396e1e607d5ced0f/6113c7ef/3-1CnCNQNkmeuT2gAWCbaKGRyLAgXoWFijsfEpYvMDaylqu25FSeuKKaIbrqIB-RIBXW6-yT30g9ketCKkDo6g%3D%3D?uid=0&filename=classic-coins-4.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        chest$V: "https://downloader.disk.yandex.ru/preview/f4897c145c3d0afff769db6f4849d3e2c477ad16d214a3d4cf616338ca5c3cdb/6113c7ef/zzW57YZM0g-Qa6tcVk5hkx3-bIh2x-QsXo0p8VZy_45CA6UtAKO3-38WVB8kWgt27yYhTNfxonRgJ5qnhqEK8A%3D%3D?uid=0&filename=classic-coins-5.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",
+        rum$barrel: "https://downloader.disk.yandex.ru/preview/69da1698d140384bf7e22ecbfc7aa79f00e3b35dd0017ce8e970aeb3fb6db99a/6113ccf1/QfR3ulIsEx65Gu6KuvVpa5rIfBwIdVEap9bL8XEeHsNgVik4WfFSj-oIXWgedzGdUjDtiWv62NgE0EZ66v3Mgw%3D%3D?uid=0&filename=classic-keg.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942"
+    };
+    function imgon(Elem) {
+        if (from_place === -1) {
+            from_place = parseInt(Elem.id);
+        } else {
+            move_pirate(Elem);
+            from_place = -1;
+        }
+        for (var i = 0; i < 169; i++) {
+            document.getElementById(i).id = Grid.table[i].Id;
+            document.getElementById(i).src = photos[Grid.table[i].type];
+        }
+    }
+    function move_pirate(Elem) {
+        for (var i = 0; i < 6; i++) {
+            if (from_place === pirates[i]) {
+                var tmp_top = -2;
+                if (parseInt(Elem.id) > from_place + 12) {
+                    tmp_top = 1;
+                } else if (Elem.id + 12 < from_place) {
+                    tmp_top = -1;
+                } else {
+                    tmp_top = 0;
+                }
+                var tmp_left = (Elem.id - from_place) % 13;
+                if (tmp_left === 12) {
+                    tmp_left = -1;
+                }
+                document.getElementById(p_c[i]).style.top = document.getElementById(p_c[i]).style.top + tmp_top * 54 + 'px';
+                document.getElementById(p_c[i]).style.left = document.getElementById(p_c[i]).style.left + tmp_left * 54 + 'px';
+                pirates[i] = parseInt(Elem.id);
+                break;
+            }
+        }
+    }
+
+</script>
+<div class="res">
+    <p>
+        <input type=text placeholder="Игрок 1">: 0
+    </p>
+    <p>
+        <input type=text placeholder="Игрок 2">: 0
+    </p>
+    <p>
+        <img name="turn" id="turn" src="https://downloader.disk.yandex.ru/preview/eb03ae83f5584e74427d1150d2954a5f7e11f0a93ee55de164670bb9c19a54b7/6113c8d3/tBbXIbxcLchz8jDLGZZpYowbxtxrpDN3h2UkO5i6u6VMXglMIr10XbiEJnUN72Ffdtxa-3PiuuEUqCrujlrJng%3D%3D?uid=0&filename=first_player.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" alt="player turn" style="position: absolute;
+        top: 10px; left: 625px;" width="164" height="24" border=0>
+    </p>
+</div>
+<table class="cells">
+    {% for i in cycle %}
+        <tr>
+        {% for j in cycle %}
+            <td>
+                {% if i == 6 and j == 0 or i == 6 and j == 12 %}
+                    <form action="game" method="post"><button type="hidden" name="cell"><img  id="0"   src="../../static/img/ship.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+                    </form>
+                {% elif i == 0 or i == 12 or j == 0 or j == 12 or i == 1 and j == 1 or i == 1 and j == 11 or i == 11 and j == 1 or i == 11 and j == 11 %}
+                    <form action="game" method="post"><button type="hidden" name="cell"><img  id="0"   src="../../static/img/empty2.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+                    </form>
+                {% else %}
+                    <form action="game" method="post"><button type="hidden" name="cell"><img  id="0"   src="../../static/img/close.png"  width="50" height="50" border=0 padding=0  onclick="imgon(this)"></button>
+                    </form>
+                {% endif %}
+            </td>
+    {% endfor %}
+    </tr>
+{% endfor %}
+
+</table>
+<h1 class="players">
+<img id="player11" name="0" src="../../static/img/red.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 420px;
+        left: 348px;">
+<img id="player12" name="1" src="../../static/img/red.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 420px;
+        left: 378px;">
+<img id="player13" name="2" src="../../static/img/red.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 450px;
+        left: 348px;">
+<img id="player21" name="3" src="../../static/img/black.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 420px;
+        left: 1045px;">
+<img id="player22" name="4" src="../../static/img/black.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 420px;
+        left: 1075px;">
+<img id="player23" name="5" src="../../static/img/black.png" alt="first" width="15" height="15" style="position: absolute;
+        top: 450px;
+        left: 1045px;">
+</h1>
+</body>
+</html>

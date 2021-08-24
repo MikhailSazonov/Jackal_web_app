@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Jackal</title>
+</head>
+<body>
+
+<script>
+
+    function changeText(id) {
+
+
+        id.innerHTML = "?????";
+
+    }
+
+</script>
+
+<!--<form th:method="POST" th:action="@{/people}" th:object="${person}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>-->
+
+<!--<h1>Form</h1>
+<form action="#" th:action="@{/game}" th:object="${greeting}" method="post">
+    <p>Id: <input type="text" th:field="*{id}" /></p>
+    <p>Message: <input type="text" th:field="*{content}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>-->
+
+<table>
+    <div th:each="i : ${grid}">
+        <tr>
+            <div th:each="j : ${i}">
+                <th>
+                    <form action="game" method="post">
+                        <input type="hidden" name="cell" th:value="${j}">
+                        <!--                    <inut type="submit" th:text="${j}"/>-->
+                        <button th:text="${j}"> </button>
+                    </form>
+                </th>
+            </div>
+        </tr>
+    </div>
+</table>
+
+<div th:each="p : ${players}">
+    <table border="10" width="70%">
+        <tr>
+            <th>Name</th>
+            <th><a th:text="${p.getName()}"></a></th>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <th><a th:text="${p.getId()}"></a></th>
+        </tr>
+        <tr>
+            <th>Coins</th>
+            <th><a th:text="${p.getMoney()}"></a></th>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Jackal</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<script>-->
+
+<!--    function changeText(id) {-->
+
+
+<!--        id.innerHTML = "?????";-->
+
+<!--    }-->
+
+<!--    function imgon() {-->
+
+<!--    }-->
+
+<!--</script>-->
+<!--<table>-->
+<!--    <div th:each="i : ${grid}">-->
+<!--        <tr>-->
+<!--        <div th:each="j : ${i}">-->
+<!--            <th>-->
+<!--                <form action="game" method="post">-->
+<!--                    <input type="hidden" name="cell" th:value="${j}"/>-->
+<!--                    <button name="cell" value="${j}$" th:value="${j}"></button>-->
+<!--                </form>-->
+<!--            </th>-->
+<!--        </div>-->
+<!--        </tr>-->
+<!--    </div>-->
+<!--</table>-->
+
+<!--<div th:each="p : ${players}">-->
+<!--    <table border="10" width="70%">-->
+<!--        <tr>-->
+<!--            <th>Name</th>-->
+<!--            <th><a th:text="${p.getName()}"></a></th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th><a th:text="${p.getId()}"></a></th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <th>Coins</th>-->
+<!--            <th><a th:text="${p.getMoney()}"></a></th>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Jackal</title>-->
+<!--    <style>-->
+<!--        p {-->
+<!--            margin-top: 0.00002em;-->
+<!--            margin-bottom: 0.00002em;-->
+<!--        }-->
+<!--        .res {-->
+<!--            text-align: left;-->
+<!--        }-->
+<!--        body {-->
+<!--            background-color: rgb(192, 192, 192);-->
+<!--        }-->
+<!--        .fig {-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        .players img:hover {-->
+<!--            border: 1px solid #55c5e9;-->
+<!--            padding: 1px;-->
+<!--            background: #666;-->
+<!--        }-->
+
+<!--        .cells button:hover {-->
+<!--            border: 0px;-->
+<!--            padding: 0px;-->
+<!--        }-->
+
+<!--        .cells button {-->
+<!--            border: 0px;-->
+<!--            padding: 0px;-->
+<!--        }-->
+
+<!--        table {-->
+<!--            margin: auto;-->
+<!--        }-->
+
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body class="fig">-->
+<!--<script src="../../../java/org/example/model/Grid.java">-->
+
+
+<!--    import { grid } from '../../../java/org/example/model/Grid.java';-->
+<!--    var grid = [];-->
+<!--    var cur_pirate = -1;-->
+<!--    var pirates = [78, 78, 78, 90, 90, 90];-->
+<!--    var ships = [78, 90];-->
+<!--    var hint = [];-->
+<!--    var hint_name = [];-->
+<!--    var cur_ship = -1;-->
+<!--    var el_ship = null;-->
+<!--    var cur_pirate = -1;-->
+<!--    var pirates = [78, 78, 78, 90, 90, 90];-->
+<!--    var ships = [78, 90];-->
+<!--    var hint = [];-->
+<!--    var hint_name = [];-->
+<!--    var cur_ship = -1;-->
+<!--    var el_ship = null;-->
+<!--    var killed = 0;-->
+<!--    const p_c = ["player11", "player12", "player13", "player21", "player22", "player23"];-->
+<!--    const start_pos_top = [380, 380, 408, 380, 380, 408];-->
+<!--    const start_pos_left = [375, 405, 375, 1022, 1052, 1022];-->
+<!--    var photos = new Map();-->
+<!--    photos = {-->
+<!--        water: "https://downloader.disk.yandex.ru/preview/5deacb1619534a1b6c266549aa97fbf3ac9ce0a5ca1a07f828e28e5975318803/6113c8d3/7bpX3AYSE3W1lIGLpY6rSshHciNOnYU_nNrY-qeYtv1quDHO9x85ozK93rdG5aaYLUlp7WcAW3NE9cu7jgVHMw%3D%3D?uid=0&filename=empty.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        blocked: "https://downloader.disk.yandex.ru/preview/5deacb1619534a1b6c266549aa97fbf3ac9ce0a5ca1a07f828e28e5975318803/6113c8d3/7bpX3AYSE3W1lIGLpY6rSshHciNOnYU_nNrY-qeYtv1quDHO9x85ozK93rdG5aaYLUlp7WcAW3NE9cu7jgVHMw%3D%3D?uid=0&filename=empty.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        ship: "https://downloader.disk.yandex.ru/preview/e8971fdcbf27eb24b177ee37bfee15854a1cb7863cc8d5ce99d3951162ede10e/6113c8d3/Hk5jgqIboXI1XK6X-SZRbWoGDKE8hPeeH5HMf8bMJuW5yft4b7H1Hbj6A8fx9oze0aRX98e7naORF8QpSxW5UQ%3D%3D?uid=0&filename=ship.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        close: "https://downloader.disk.yandex.ru/preview/5deacb1619534a1b6c266549aa97fbf3ac9ce0a5ca1a07f828e28e5975318803/6113c8d3/7bpX3AYSE3W1lIGLpY6rSshHciNOnYU_nNrY-qeYtv1quDHO9x85ozK93rdG5aaYLUlp7WcAW3NE9cu7jgVHMw%3D%3D?uid=0&filename=empty.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        empty: "https://downloader.disk.yandex.ru/preview/e8be097fd28fd4d20b13d25c44fb7607711a8a608faed0d70f959f4c7970d04f/6113c7ef/ZUuTE0gfHCgEcNmXtO9q1CQz6Xgyx42wou8niSd0xTIBk10eWcmx2fQ7EMP7Ly2uZ4jx1KZMyHoqRkPTnRMCrg%3D%3D?uid=0&filename=classic-empty-1.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        arrow: "https://downloader.disk.yandex.ru/preview/a777db8c458a7381823c03f61059968f75eaf0c70d10f300a052d0021f6cbdaa/6113c7ef/jIU3P1ynRwT82v_221qEZ0wlQ7kXUMt9EMw-AIyWr6Jt9SerzuzSqcEXSkjRHQS_6ks_9ZDk97ztmPFlYmpwDg%3D%3D?uid=0&filename=classic-arrow-2s.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        horse: "https://downloader.disk.yandex.ru/preview/01f24315dacdf7cfaf8c4f326ac8816412700829cbac116857b68b0a1c63346d/6113c7ef/DYhPREX9uUiw6afJvK9MEJrIfBwIdVEap9bL8XEeHsNckLA6sfoWBxBZqGKKyCCi2kZLp8uF4_FzdSxpklnKDA%3D%3D?uid=0&filename=classic-horse.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        lab$II: "https://downloader.disk.yandex.ru/preview/588385c8980924ae25d653e392edd9d7df95576de5c4f6bdbeb40fc9081362a6/6113c8d3/sIftp37XdQSkUlQDxphbzV-2L-oeAuMkjJjv4si8-CASJZnsxSbDp_9cspt6z7gaGVWmd7HzjZnEXcIxwKLSFQ%3D%3D?uid=0&filename=classic-rotate-2.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        lab$III: "https://downloader.disk.yandex.ru/preview/7ca384f79f83e86c2a59b77022de6345b47d5187fe25c0f093e60bd6bff68798/6113c8d3/thGY53hZxo4B5_0PdpXf-F-2L-oeAuMkjJjv4si8-CCp6_UEwIDDUxtwIDEabnkQPME6nbPAT5ra9T4aDR8gRA%3D%3D?uid=0&filename=classic-rotate-3.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        lab$IV: "https://downloader.disk.yandex.ru/preview/ff337b7a2b560c89bae4cdb34269d49da366fcff4045f20c1e95edfdb29f0a82/6113c8d3/tEXKeTG&#45;&#45;J0kjQ2p9OjgR1-2L-oeAuMkjJjv4si8-CAx3iE70RSOdlBKhoBY3xyX54MmIeDBPuZXDp49A2Y6DA%3D%3D?uid=0&filename=classic-rotate-4.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        lab$V: "https://downloader.disk.yandex.ru/preview/55c8ca9df4c19022ef805d45991aec2705f6a9fc5c885e5e9113d1e0f9b8d5e2/6113c8d3/5jm9DgpCZ9qPPqzDOu5DXF-2L-oeAuMkjJjv4si8-CABowUGOWWdqzisvL_doWgzbRCMd9wq8_pVc5CNmkcLYg%3D%3D?uid=0&filename=classic-rotate-5.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        ice: "https://downloader.disk.yandex.ru/preview/3bae2e6e3d2b82ec96c4ef8554fab4908252bfe22097515c717894c46cbe849a/6113c7ef/XpwxWG1PamAKJRpeH_fWLzLmYGD-uo0ghgzMwbdKhPWj__qbUhHL3K6DfFf36AnvaezRdFLZYNp3BuGPRkVm0A%3D%3D?uid=0&filename=classic-ice.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        croc: "https://downloader.disk.yandex.ru/preview/e456c1819f15647650e4675c2eace484c7ffb739c7ca2b43237a08c1dd63e23d/6113c7ef/U2Mb_zdaWMqQlhGuUN-b9qGRyLAgXoWFijsfEpYvMDau1MC0AmJJEtdddYvpFBqf0p80ifRuRn1rrL83PUYZYw%3D%3D?uid=0&filename=classic-crocodile.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        cannibal: "https://downloader.disk.yandex.ru/preview/0d405c481f52360e7ca6e1b784208b4f7281481d55c8be96c1b6e967b63ae302/6113c7ef/Ia3g5qR0MbXZQWmi3NzbsMYcUV-jFMI3B6dqNISITrIJncZAwCjafp7qUWAOiCXP0l_uiK45YeXtIB1531lCLw%3D%3D?uid=0&filename=classic-cannibal.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        fortress: "https://downloader.disk.yandex.ru/preview/bc82db078cdb6ac81d8f827f3c1789d68214946b747412dea9ec2d5873889d4a/6113c7ef/2cLoY6D-0V-m3JZFAVwEgCQz6Xgyx42wou8niSd0xTLcTVr_A4mpp7TctLlAGSW85_OOmHwnxCOcldz33bmESQ%3D%3D?uid=0&filename=classic-fort.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        resurrect: "https://downloader.disk.yandex.ru/preview/d026e4276804ce9a913636bfac7e7aeb48f0c5d75eb7f0a17175870a9563e90a/6113c7ef/ckGepZf9D2zHs1UybcN7ACQz6Xgyx42wou8niSd0xTJk0AeNUw7q-bFIOScSu1gMMZu_vnngE-F7WtI2ePOSzg%3D%3D?uid=0&filename=classic-fort-w-aborigine.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        trap: "https://downloader.disk.yandex.ru/preview/5fc54943bbba63bf82f357a998460d73be780678de1e1ecc80ecb44073fc55c8/6113cbb5/sQ6k03NyGmEMqEkCKroiuDLmYGD-uo0ghgzMwbdKhPVHydwyprYlYmtX0sAq_Z4EduC5dkgh4ueNKpwBbRE7YQ%3D%3D?uid=0&filename=classic-pitfall.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        aircraft: "https://downloader.disk.yandex.ru/preview/05c2c3ca603b44ed1035f744f2385883d29945abee8a9ee329cd93d5b3ee0868/6113c7ef/x1bvk3h7DC4wY8i5HtlfOzLHMfXTbtbPXJiCM5vf_ozqCFNr6zH235VPS1h8jb5yxEkM_ZUxbISIOUlOt5hlMQ%3D%3D?uid=0&filename=classic-balloon.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        airplane: "https://downloader.disk.yandex.ru/preview/208a3da9199991405b4330598d9a8e2036d6e5b546ea9772327644e1f2e617d4/6113c7ef/2gGxHo6YLFj2vFJ6zUuhGDLHMfXTbtbPXJiCM5vf_oyb7qDR9olCuPeC0F29uzYMlpvaXrYpa9OWxHY6oBYFAg%3D%3D?uid=0&filename=classic-airplane.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        leftcannon: "https://downloader.disk.yandex.ru/preview/d489436393910ed5520d635b30465efde36f54a67e769ba10bdbf08a35473f93/6113cbb5/lSmGoFXDR8fyW5tVchIF5p4Vark05SgdEgJLa4z4h3ldB0xAuqhXghffkJlj7WwjYrvrLpae6syWirerIdOTcw%3D%3D?uid=0&filename=left%20cannon.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        rightcannon: "https://downloader.disk.yandex.ru/preview/ea77d4d86c7086b313f39bf10b1b5b470d292e19ca42b146e93fbf1511157cb4/6113cbb5/wT-DoY9LjXJWtZP3Mlw1tdthnY4WUSRXJoeKCxKOGqPvBlRaz3qX-yrVnnckIdPD8pJk45JjzzZMxYCZXDvR0A%3D%3D?uid=0&filename=rightcannon.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        chest$I: "https://downloader.disk.yandex.ru/preview/4e5c1545ad1f19b815655f8b1859fe7a8e3e2efc5e9382abc3a15c9f59ac79e7/6113c7ef/MvXxo79xmiKGwGT7ZrhjpR3-bIh2x-QsXo0p8VZy_44rEeLzd_3TZTwq7awIIzyop4O1U9mZ-8qqB5y0Wck2Nw%3D%3D?uid=0&filename=classic-coins-1.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        chest$II: "https://downloader.disk.yandex.ru/preview/beeede244a8f93d5f44efda5104dcf141ed4f277936bbcbc77ac0f0ba9c35c72/6113c7ef/Jjk8nMNuXd9ZvxKw8qwcg8YcUV-jFMI3B6dqNISITrJeR1mQPKpEA5G7LTCPP52MeZ32Zfa2EnkR1sUi8KdSTw%3D%3D?uid=0&filename=classic-coins-2.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        chest$III: "https://downloader.disk.yandex.ru/preview/0f243100ff53aa9380320c2bc6d3b327fa3e8e717d3f86638ef7a18b7054de29/6113c7ef/mxFwj8mNzY0bviVRf-Kb-cYcUV-jFMI3B6dqNISITrKkMh4xraY9Izcm5zmbitIUr2DkkwuhP3f0Jg4hGrp1FA%3D%3D?uid=0&filename=classic-coins-3.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        chest$IV: "https://downloader.disk.yandex.ru/preview/13580df94e964087d5e1dc2a90ebca7a9878cd57e84578fc396e1e607d5ced0f/6113c7ef/3-1CnCNQNkmeuT2gAWCbaKGRyLAgXoWFijsfEpYvMDaylqu25FSeuKKaIbrqIB-RIBXW6-yT30g9ketCKkDo6g%3D%3D?uid=0&filename=classic-coins-4.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        chest$V: "https://downloader.disk.yandex.ru/preview/f4897c145c3d0afff769db6f4849d3e2c477ad16d214a3d4cf616338ca5c3cdb/6113c7ef/zzW57YZM0g-Qa6tcVk5hkx3-bIh2x-QsXo0p8VZy_45CA6UtAKO3-38WVB8kWgt27yYhTNfxonRgJ5qnhqEK8A%3D%3D?uid=0&filename=classic-coins-5.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942",-->
+<!--        rum$barrel: "https://downloader.disk.yandex.ru/preview/69da1698d140384bf7e22ecbfc7aa79f00e3b35dd0017ce8e970aeb3fb6db99a/6113ccf1/QfR3ulIsEx65Gu6KuvVpa5rIfBwIdVEap9bL8XEeHsNgVik4WfFSj-oIXWgedzGdUjDtiWv62NgE0EZ66v3Mgw%3D%3D?uid=0&filename=classic-keg.png&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v2&size=1898x942"-->
+<!--    };-->
+<!--    function imgon(Elem) {-->
+<!--        for (var i = 0; i < 169; i++) {-->
+<!--            document.getElementById(i).id = grid.table[i / 13][i % 13].Id;-->
+<!--            document.getElementById(i).src = photos[grid.table[i / 13][i % 13].type];-->
+<!--        }-->
+<!--    }-->
+
+<!--</script>-->
+<!--<div class="res">-->
+<!--    <p>-->
+<!--        <input type=text placeholder="Player 1">: 0-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        <input type=text placeholder="Player 2">: 0-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        <img name="turn" id="turn" src="https://downloader.disk.yandex.ru/preview/eb03ae83f5584e74427d1150d2954a5f7e11f0a93ee55de164670bb9c19a54b7/6113c8d3/tBbXIbxcLchz8jDLGZZpYowbxtxrpDN3h2UkO5i6u6VMXglMIr10XbiEJnUN72Ffdtxa-3PiuuEUqCrujlrJng%3D%3D?uid=0&filename=first_player.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" alt="player turn" style="position: absolute;-->
+<!--        top: 10px; left: 625px;" width="164" height="24" border=0>-->
+<!--    </p>-->
+<!--</div>-->
+<!--<table class="cells">-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="0"><img id="0" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0  onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="1"><img id="1" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="2"><img id="2" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="3"><img id="3" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="4"><img id="4" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="5"><img id="5" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="6"><img id="6" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="7"><img id="7" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="8"><img id="8" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="9"><img id="9" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="10"><img id="10" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="11"><img id="11" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="12"><img id="12" src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" width="50" height="54" border=0 padding=0 onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="13"><img  id="13"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)" alt=""></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="14"><img  id="14"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="15"><img  id="15"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="16"><img  id="16"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="17"><img  id="17"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="18"><img  id="18"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="19"><img  id="19"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="20"><img  id="20"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="21"><img  id="21"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="22"><img  id="22"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="23"><img  id="23"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="24"><img  id="24"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="25"><img  id="25"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="26"><img  id="26"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="27"><img  id="27"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="28"><img  id="28"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="29"><img  id="29"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="30"><img  id="30"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="31"><img  id="31"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="32"><img  id="32"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="33"><img  id="33"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="34"><img  id="34"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="35"><img  id="35"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="36"><img  id="36"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="37"><img  id="37"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="38"><img  id="38"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="39"><img  id="39"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="40"><img  id="40"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="41"><img  id="41"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="42"><img  id="42"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="43"><img  id="43"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="44"><img  id="44"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="45"><img  id="45"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="46"><img  id="46"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="47"><img  id="47"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="48"><img  id="48"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="49"><img  id="49"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="50"><img  id="50"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="51"><img  id="51"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="52"><img  id="52"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="53"><img  id="53"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="54"><img  id="54"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="55"><img  id="55"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="56"><img  id="56"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="57"><img  id="57"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="58"><img  id="58"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="59"><img  id="59"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="60"><img  id="60"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="61"><img  id="61"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="62"><img  id="62"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="63"><img  id="63"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="64"><img  id="64"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="65"><img  id="65"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="66"><img  id="66"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="67"><img  id="67"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="68"><img  id="68"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="69"><img  id="69"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="70"><img  id="70"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="71"><img  id="71"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="72"><img  id="72"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="73"><img  id="73"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="74"><img  id="74"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="75"><img  id="75"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="76"><img  id="76"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="77"><img  id="77"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="78"><img  id="78"   src="https://downloader.disk.yandex.ru/preview/0c636b660335247cc94daf908ff9863a140cbc61b1a7b1c376117ec81a2daf4b/61142432/Hk5jgqIboXI1XK6X-SZRbWoGDKE8hPeeH5HMf8bMJuW5yft4b7H1Hbj6A8fx9oze0aRX98e7naORF8QpSxW5UQ%3D%3D?uid=0&filename=ship.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="79"><img  id="79"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="80"><img  id="80"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="81"><img  id="81"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="82"><img  id="82"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="83"><img  id="83"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="84"><img  id="84"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="85"><img  id="85"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="86"><img  id="86"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="87"><img  id="87"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="88"><img  id="88"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="89"><img  id="89"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="90"><img  id="90"   src="https://downloader.disk.yandex.ru/preview/0c636b660335247cc94daf908ff9863a140cbc61b1a7b1c376117ec81a2daf4b/61142432/Hk5jgqIboXI1XK6X-SZRbWoGDKE8hPeeH5HMf8bMJuW5yft4b7H1Hbj6A8fx9oze0aRX98e7naORF8QpSxW5UQ%3D%3D?uid=0&filename=ship.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="91"><img  id="91"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="92"><img  id="92"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="93"><img  id="93"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="94"><img  id="94"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="95"><img  id="95"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="96"><img  id="96"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="97"><img  id="97"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="98"><img  id="98"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="99"><img  id="99"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="100"><img  id="100"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="101"><img  id="101"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="102"><img  id="102"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="103"><img  id="103"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="104"><img  id="104"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="105"><img  id="105"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="106"><img  id="106"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="107"><img  id="107"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="108"><img  id="108"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="109"><img  id="109"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="110"><img  id="110"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="111"><img  id="111"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="112"><img  id="112"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="113"><img  id="113"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="114"><img  id="114"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="115"><img  id="115"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="116"><img  id="116"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="117"><img  id="117"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="118"><img  id="118"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="119"><img  id="119"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="120"><img  id="120"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="121"><img  id="121"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="122"><img  id="122"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="123"><img  id="123"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="124"><img  id="124"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="125"><img  id="125"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="126"><img  id="126"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="127"><img  id="127"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="128"><img  id="128"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="129"><img  id="129"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="130"><img  id="130"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="131"><img  id="131"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="132"><img  id="132"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="133"><img  id="133"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="134"><img  id="134"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="135"><img  id="135"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="136"><img  id="136"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="137"><img  id="137"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="138"><img  id="138"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="139"><img  id="139"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="140"><img  id="140"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="141"><img  id="141"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="142"><img  id="142"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="143"><img  id="143"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="144"><img  id="144"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="145"><img  id="145"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="146"><img  id="146"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="147"><img  id="147"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="148"><img  id="148"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="149"><img  id="149"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="150"><img  id="150"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="151"><img  id="151"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="152"><img  id="152"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="153"><img  id="153"   src="https://downloader.disk.yandex.ru/preview/787fe3ad86c79b4bf6b66e085960ff4670f681f1542245430ded66f54c3324b6/61142432/iVPMT7YVDIS4AHRsIdwtfIwbxtxrpDN3h2UkO5i6u6XdXqwRl1z3438KJo9bKQ1Q9oGzVkwqSNKOTazt_5EYaw%3D%3D?uid=0&filename=close.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="154"><img  id="154"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="155"><img  id="155"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="156"><img  id="156"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="157"><img  id="157"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="158"><img  id="158"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="159"><img  id="159"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="160"><img  id="160"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="161"><img  id="161"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="162"><img  id="162"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="163"><img  id="163"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="164"><img  id="164"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="165"><img  id="165"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="166"><img  id="166"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="167"><img  id="167"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--        <td><form action="game" method="post"><button type="hidden" name="cell" value="168"><img  id="168"   src="https://downloader.disk.yandex.ru/preview/e980d0a53b547b0df44dd6ba0665bfdcd9b5eb0615e4927640b96c1d14aa5586/61142432/joJO-BuK5DswdaM2Z3bcfshHciNOnYU_nNrY-qeYtv1QBlxLImczjxmIjI6PdktOjnp0YxW2B2D18m4OgKPXLA%3D%3D?uid=0&filename=empty2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942"  width="50" height="54" border=0 padding=0  onclick="imgon(this)"></button>-->
+<!--        </form></td>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--<h1 class="players">-->
+<!--    <img id="player11" name="0" src="https://downloader.disk.yandex.ru/preview/9a38a308288d22352f5b52e13126d51c3e38222d1affe189d8afbc1d88a5c385/61142432/2cLoY6D-0V-m3JZFAVwEgIwbxtxrpDN3h2UkO5i6u6VTpDQ0UyI3eOOc1OK_pO82ubCNhp4mcJq-6CtZRaRenQ%3D%3D?uid=0&filename=red.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" alt="first" width="15" height="15" style="position: absolute;-->
+<!--        top: 420px;-->
+<!--        left: 348px;">-->
+<!--    <img id="player12" name="1" src="https://downloader.disk.yandex.ru/preview/9a38a308288d22352f5b52e13126d51c3e38222d1affe189d8afbc1d88a5c385/61142432/2cLoY6D-0V-m3JZFAVwEgIwbxtxrpDN3h2UkO5i6u6VTpDQ0UyI3eOOc1OK_pO82ubCNhp4mcJq-6CtZRaRenQ%3D%3D?uid=0&filename=red.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" alt="first" width="15" height="15" style="position: absolute;-->
+<!--        top: 420px;-->
+<!--        left: 378px;">-->
+<!--    <img id="player13" name="2" src="https://downloader.disk.yandex.ru/preview/9a38a308288d22352f5b52e13126d51c3e38222d1affe189d8afbc1d88a5c385/61142432/2cLoY6D-0V-m3JZFAVwEgIwbxtxrpDN3h2UkO5i6u6VTpDQ0UyI3eOOc1OK_pO82ubCNhp4mcJq-6CtZRaRenQ%3D%3D?uid=0&filename=red.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" alt="first" width="15" height="15" style="position: absolute;-->
+<!--        top: 450px;-->
+<!--        left: 348px;">-->
+<!--    <img id="player21" name="3" src="https://downloader.disk.yandex.ru/preview/9f0c9b08a1fcbc78ea87206e7921f1a06ea45448c5f35830d8222f9dbc2c2178/6114242f/J1Y9dYKfyY811IIzLQmjxUwlQ7kXUMt9EMw-AIyWr6ITeO9YfadAu3unSPSRS0D4zFwQR44f1T0zgLpaMtpQIw%3D%3D?uid=0&filename=black.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" alt="first" width="15" height="15" style="position: absolute;-->
+<!--        top: 420px;-->
+<!--        left: 1045px;">-->
+<!--    <img id="player22" name="4" src="https://downloader.disk.yandex.ru/preview/9f0c9b08a1fcbc78ea87206e7921f1a06ea45448c5f35830d8222f9dbc2c2178/6114242f/J1Y9dYKfyY811IIzLQmjxUwlQ7kXUMt9EMw-AIyWr6ITeO9YfadAu3unSPSRS0D4zFwQR44f1T0zgLpaMtpQIw%3D%3D?uid=0&filename=black.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" alt="first" width="15" height="15" style="position: absolute;-->
+<!--        top: 420px;-->
+<!--        left: 1075px;">-->
+<!--    <img id="player23" name="5" src="https://downloader.disk.yandex.ru/preview/9f0c9b08a1fcbc78ea87206e7921f1a06ea45448c5f35830d8222f9dbc2c2178/6114242f/J1Y9dYKfyY811IIzLQmjxUwlQ7kXUMt9EMw-AIyWr6ITeO9YfadAu3unSPSRS0D4zFwQR44f1T0zgLpaMtpQIw%3D%3D?uid=0&filename=black.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1898x942" alt="first" width="15" height="15" style="position: absolute;-->
+<!--        top: 450px;-->
+<!--        left: 1045px;">-->
+<!--</h1>-->
+<!--</body>-->
+<!--</html>-->
